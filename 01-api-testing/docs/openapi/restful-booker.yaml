@@ -1,0 +1,107 @@
+openapi: 3.0.3
+info:
+  title: Restful Booker
+  version: "1.0"
+  description: Practice API for learning API test automation
+servers:
+  - url: https://restful-booker.herokuapp.com
+
+components:
+  schemas:
+    BookingDates:
+      type: object
+      required: [checkin, checkout]
+      properties:
+        checkin:
+          type: string
+          format: date
+        checkout:
+          type: string
+          format: date
+
+    Booking:
+      type: object
+      required: [firstname, lastname, totalprice, depositpaid, bookingdates]
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        totalprice:
+          type: integer
+        depositpaid:
+          type: boolean
+        bookingdates:
+          $ref: '#/components/schemas/BookingDates'
+        additionalneeds:
+          type: string
+
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+    basicAuth:
+      type: http
+      scheme: basic
+
+paths:
+
+  /auth:
+    post:
+      operationId: createToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: Token created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: { type: string }
+        '400':
+          description: Bad request — malformed or invalid JSON body
+
+  /booking/{id}:
+    get:
+      operationId: getBooking
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Booking found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '404':
+          description: Booking not found
+
+    delete:
+        operationId: deleteBooking
+        security:
+          - cookieAuth: []
+          - basicAuth: []
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema: { type: integer }
+        responses:
+          '201':
+            description: Booking deleted
+          '403':
+            description: Forbidden, missing or bad auth
