@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Playwright output
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Environment
+# .env.dev and .env.staging are committed on purpose: they hold only the
+# public demo credentials published by the sites under test. Anything with a
+# real secret belongs in a *.local file, which is never committed.
+config/.env.local
+config/.env.*.local
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
