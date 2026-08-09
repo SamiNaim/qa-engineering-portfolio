@@ -24,7 +24,7 @@ the code I wrote *afterwards* to prove I could actually use it.
 
 ```
 qa-engineering-portfolio/
-├── 01-api-testing/                     # Microservices architectures, REST
+├── 01-api-testing/                     # REST assured, Playwright, Microservices
 ├── 02-web-ui-automation/               # Web applications, E-commerce, SaaS platforms
 ├── 03-database/                        # Data integrity, Backend verification
 ├── 04-bdd/                             # Requirement mapping
