@@ -14,11 +14,6 @@ export class TheInternetLoginPage extends BasePage {
     this.username = page.getByLabel('Username');
     this.password = page.getByLabel('Password');
     this.submitButton = page.getByRole('button', { name: 'Login' });
-    // The flash banner carries no ARIA role and no test id — verified against
-    // the live page, it renders as `<div data-alert id="flash" class="flash">`.
-    // An id is the most stable handle available here; the class changes between
-    // success and error.
-    // eslint-disable-next-line no-restricted-syntax
     this.flashMessage = page.locator('#flash');
   }
 

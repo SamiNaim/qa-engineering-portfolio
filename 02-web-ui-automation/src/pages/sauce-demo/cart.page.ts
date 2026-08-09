@@ -2,11 +2,6 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '../base.page';
 import { env } from '@config/env';
 
-/**
- * Covers the cart plus the three checkout steps that follow it. The steps are
- * separate methods on purpose so tests can assert intermediate state (the
- * checkout overview in particular) rather than blindly running the whole flow.
- */
 export class CartPage extends BasePage {
   readonly cartItems: Locator;
   readonly checkoutButton: Locator;

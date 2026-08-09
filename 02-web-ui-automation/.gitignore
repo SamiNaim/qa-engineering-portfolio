@@ -14,8 +14,3 @@ node_modules/
 # real secret belongs in a *.local file, which is never committed.
 config/.env.local
 config/.env.*.local
-
-# OS / editor
-.DS_Store
-.vscode/
-.idea/

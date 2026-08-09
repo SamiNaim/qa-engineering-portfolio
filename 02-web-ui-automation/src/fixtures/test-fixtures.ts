@@ -9,7 +9,7 @@ import { PracticeFormPage } from '@pages/demoqa/forms.page';
 
 /**
  * Third-party ad and analytics hosts. DemoQA and AutomationExercise both embed
- * ad iframes that can float over the page and swallow clicks — the single
+ * ad iframes that can float over the page and swallow clicks. The single
  * biggest source of flake in this suite. Aborting these requests is far more
  * reliable than scrolling elements into view before every click, and it makes
  * those specs noticeably faster.

@@ -14,9 +14,6 @@ export class SignupPage extends BasePage {
 
     // This page renders two forms — login and signup — and both use the
     // "Email Address" placeholder, so the fields are ambiguous page-wide.
-    // Scope by the <form> element that contains the Signup button: a tag name
-    // narrowed by a user-facing filter, rather than a brittle class selector.
-    // eslint-disable-next-line no-restricted-syntax
     this.signupForm = page.locator('form', {
       has: page.getByRole('button', { name: 'Signup' }),
     });
