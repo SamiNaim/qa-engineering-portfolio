@@ -4,8 +4,6 @@
 
 **End-to-end web UI test automation with Playwright and TypeScript.**
 
-[![Web UI Automation](https://github.com/SamiNaim/qa-engineering-portfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/SamiNaim/qa-engineering-portfolio/actions/workflows/playwright.yml)
-
 </div>
 
 ---
