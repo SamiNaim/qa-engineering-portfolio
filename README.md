@@ -27,12 +27,11 @@ qa-engineering-portfolio/
 ├── 01-api-testing/                     # REST assured, Playwright, Microservices
 ├── 02-web-ui-automation/               # Web applications, E-commerce, SaaS platforms
 ├── 03-database/                        # Data integrity, Backend verification
-├── 04-bdd/                             # Requirement mapping
-├── 05-ci-cd-devops-integration/        # Continuos testing, DevOps pipelines
-├── 06-performance-testing/             # Scalability, SLA verification
-├── 07-security/                        # Compliance, OWASP Web Standards
-├── 08-mobile-automation/               # IOS, Android
-└── 09-ai-testing/                      # AI test creation
+├── 04-ci-cd-devops-integration/        # Continuos testing, DevOps pipelines
+├── 05-performance-testing/             # Scalability, SLA verification
+├── 06-security/                        # Compliance, OWASP Web Standards
+├── 07-mobile-automation/               # IOS, Android
+└── 08-ai-testing/                      # AI test creation
 ```
 
 <sub>Licensed under [MIT](./LICENSE). Course and tool names are trademarks of their respective owners; this repository is not affiliated with or endorsed by any of them.</sub>

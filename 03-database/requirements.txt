@@ -1,0 +1,5 @@
+pytest
+testcontainers[postgres]
+psycopg2-binary
+great_expectations[postgresql]
+soda-core-postgres

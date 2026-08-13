@@ -1,0 +1,6 @@
+checks for customer:
+  - row_count > 0
+  - missing_count(email) = 0
+  - duplicate_count(email) = 0
+  - missing_count(customer_id) = 0
+  - duplicate_count(customer_id) = 0

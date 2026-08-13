@@ -1,0 +1,1 @@
+ALTER TABLE customer ADD COLUMN created_at TIMESTAMP DEFAULT now();
