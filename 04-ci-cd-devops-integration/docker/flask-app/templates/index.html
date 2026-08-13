@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Catnip</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 3rem auto; max-width: 40rem; }
+    dt { font-weight: 600; }
+    img { max-width: 100%; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Catnip</h1>
+  <img src="{{ url }}" alt="cat gif">
+  <dl>
+    <dt>Container hostname</dt><dd>{{ hostname }}</dd>
+    <dt>Elasticsearch</dt><dd>{{ es_status }}</dd>
+  </dl>
+  <p>Try <a href="/search?q=tacos">/search?q=tacos</a> and <a href="/health">/health</a>.</p>
+</body>
+</html>

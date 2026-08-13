@@ -1,0 +1,42 @@
+# Two containers, one network. `web` reaches Elasticsearch at http://es:9200 —
+# the service name is the hostname, resolved by Docker's embedded DNS on the
+# default network Compose creates for this project.
+services:
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.18
+    container_name: es
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m   # a laptop does not need the 2 GB default heap
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data   # named volume: the index survives `down`
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  web:
+    build: ./flask-app
+    depends_on:
+      es:
+        condition: service_healthy   # wait for readiness, not just for the container to exist
+    environment:
+      - ES_URL=http://es:9200
+    ports:
+      - "8888:5000"   # 5000 is taken by AirPlay Receiver on macOS
+    develop:
+      watch:
+        - path: ./flask-app
+          target: /usr/src/app
+          action: sync        # edit a .py file, the container sees it immediately
+          ignore:
+            - __pycache__/
+        - path: ./flask-app/requirements.txt
+          action: rebuild     # a dependency change needs a new image
+
+volumes:
+  esdata:
+    driver: local

@@ -1,0 +1,66 @@
+// Declarative Pipeline for the Rest Assured suite in 01-api-testing/.
+//
+// Applies the Jenkins tutorial "Build a Java app with Maven"
+// (https://www.jenkins.io/doc/tutorials/build-a-java-app-with-maven/)
+// to this repository. The tutorial assumes the Maven project sits at the root
+// of the checkout; here it is nested, so every mvn invocation is wrapped in
+// dir() and the junit pattern is workspace-relative.
+
+pipeline {
+    agent any
+
+    options {
+        // If Test goes UNSTABLE (a failing test), stop before Deliver so a
+        // broken build is never packaged and installed.
+        skipStagesAfterUnstable()
+    }
+
+    environment {
+        MAVEN_PROJECT = '01-api-testing/rest-assured-tests/demo'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                dir(env.MAVEN_PROJECT) {
+                    // -B = batch mode, no ANSI progress spam in the console log.
+                    sh 'mvn -B -DskipTests clean package'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir(env.MAVEN_PROJECT) {
+                    // failure.ignore keeps Surefire from hard-failing the step,
+                    // so the junit step below is what grades the build. A test
+                    // failure then lands as UNSTABLE (not FAILURE), which is
+                    // what skipStagesAfterUnstable() above reacts to.
+                    sh 'mvn -B -Dmaven.test.failure.ignore=true test'
+                }
+            }
+            post {
+                always {
+                    // Archive the Surefire XML so Jenkins renders trends and
+                    // per-test detail. Runs even when the tests fail, which is
+                    // exactly when the report matters most.
+                    junit "${MAVEN_PROJECT}/target/surefire-reports/*.xml"
+                }
+            }
+        }
+
+        stage('Deliver') {
+            steps {
+                dir(env.MAVEN_PROJECT) {
+                    sh "${WORKSPACE}/04-ci-cd-devops-integration/jenkins/scripts/deliver.sh"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Result: ${currentBuild.currentResult}"
+        }
+    }
+}

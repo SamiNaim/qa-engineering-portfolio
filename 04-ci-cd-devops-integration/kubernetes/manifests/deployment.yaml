@@ -1,0 +1,44 @@
+# Declarative equivalent of module 2's
+#   kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-bootcamp
+  labels:
+    app: kubernetes-bootcamp
+spec:
+  replicas: 1   # module 5 scales this to 4 with `kubectl scale`
+  selector:
+    matchLabels:
+      app: kubernetes-bootcamp   # must match the pod template labels below
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1   # the defaults module 6 relies on, written out
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: kubernetes-bootcamp
+    spec:
+      containers:
+        - name: kubernetes-bootcamp
+          # amd64-only image. On Apple Silicon, minikube needs an emulating driver.
+          image: gcr.io/google-samples/kubernetes-bootcamp:v1
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            # Until this passes the Service sends no traffic to the pod.
+            # This is what makes the module 6 rolling update zero-downtime.
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
