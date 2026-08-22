@@ -29,9 +29,9 @@ qa-engineering-portfolio/
 ├── 03-database/                        # Data integrity, Backend verification
 ├── 04-ci-cd-devops-integration/        # Continuos testing, DevOps pipelines
 ├── 05-performance-testing/             # Scalability, SLA verification
-├── 06-security/                        # Compliance, OWASP Web Standards
+├── 06-ai-testing/                      # AI test creation
 ├── 07-mobile-automation/               # IOS, Android
-└── 08-ai-testing/                      # AI test creation
+└── 08-security/                        # Compliance, OWASP Web Standards
 ```
 
 <sub>Licensed under [MIT](./LICENSE). Course and tool names are trademarks of their respective owners; this repository is not affiliated with or endorsed by any of them.</sub>
